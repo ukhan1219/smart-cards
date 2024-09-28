@@ -4,12 +4,15 @@ import fileUpload from 'express-fileupload';
 import axios from 'axios';
 import cors from 'cors';
 import OpenAI from "openai";
-
+import dotenv from 'dotenv';
+import session from 'express-session';
+import passport from 'passport';
+import { Strategy as googleStrategy } from 'passport-google-oauth20';
+dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
-// const API_KEY = '';  cl
 const openai = new OpenAI({
-    apiKey: API_KEY,
+    apiKey: process.env.OPEN_API_KEY,
   });
 // Enable CORS for all routes
 app.use(cors());  // CORS middleware should be placed before other middlewares
@@ -52,10 +55,8 @@ const verifyReceipt = async (imageData) => {
         // Convert to lowercase and trim extra spaces
         result = result.toLowerCase().trim();
     
-        console.log('OpenAI edited response:', result);
     
           // Log the comparison (Node.js uses console.log, not print)
-          console.log(result === 'true');  // This will print true or false depending on the result
     
           // Return true if the response is 'true', otherwise return false
         return result === 'true';
@@ -159,7 +160,6 @@ app.post('/upload', async (req, res) => {
         // Step 2: Extract Item Details from the Receipt + Tax
         const receiptDetails = await extractReceiptDetails(image.data);
 
-        console.log(receiptDetails.items);
         // Step 3: Categorize the items in the receipt via pretrained model
         const pythonResponse = await axios.post('http://localhost:5001/autocategorize', {
             items: receiptDetails.items  // Send JSON object containing the items
@@ -173,6 +173,8 @@ app.post('/upload', async (req, res) => {
         const categorizedItems = pythonResponse.data;
         // remove receiptDetails.items and add categorizedItems
         receiptDetails.items = categorizedItems;
+
+        console.log(receiptDetails);
 
         // Send the response back to the client
         // res.json(response.data);
