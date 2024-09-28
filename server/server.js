@@ -161,7 +161,7 @@ app.post('/upload', async (req, res) => {
         const receiptDetails = await extractReceiptDetails(image.data);
 
         // Step 3: Categorize the items in the receipt via pretrained model
-        const pythonResponse = await axios.post('http://localhost:5001/autocategorize', {
+        const pythonResponse = await axios.post('http://127.0.0.1:5001/autocategorize', {
             items: receiptDetails.items  // Send JSON object containing the items
         }, {
             headers: {
@@ -235,7 +235,7 @@ app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
     // Successful authentication, redirect to frontend
-    res.redirect('http://localhost:5173/upload');
+    res.redirect('http://127.0.0.1:5173/upload');
   }
 );
 
@@ -249,5 +249,5 @@ app.get('/api/user', (req, res) => {
   });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://127.0.0.1:${PORT}`);
 });
