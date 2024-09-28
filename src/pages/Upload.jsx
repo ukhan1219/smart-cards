@@ -47,17 +47,45 @@ const Upload = () => {
   };
 
   return (
-    <div className="upload-container">
-      <input type="file" onChange={handleFileChange} accept="image/*" />
-      {previewUrl && (
-        <div className="image-preview">
-          <img src={previewUrl} alt="Preview" style={{ maxWidth: '200px' }} />
-        </div>
-      )}
-      <button onClick={handleUpload} disabled={!selectedFile}>
-        Upload Image
-      </button>
-      {uploadStatus && <p>{uploadStatus}</p>}
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4 overflow-hidden">
+      <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-md overflow-y-auto max-h-full">
+        <label className="block mb-4">
+          <span className="sr-only">Choose file</span>
+          <input 
+            type="file" 
+            onChange={handleFileChange} 
+            accept="image/*"
+            className="block w-full text-sm text-gray-500
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-full file:border-0
+              file:text-sm file:font-semibold
+              file:bg-blue-50 file:text-blue-700
+              hover:file:bg-blue-100"
+          />
+        </label>
+        {previewUrl && (
+          <div className="mb-4">
+            <img src={previewUrl} alt="Preview" className="max-w-full h-auto rounded-lg" />
+          </div>
+        )}
+        <button
+          onClick={handleUpload}
+          disabled={!selectedFile}
+          className={`
+            w-full px-4 py-2 rounded-lg
+            font-semibold text-sm
+            bg-blue-500 text-white
+            transition-colors duration-300
+            ${selectedFile 
+              ? 'hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75' 
+              : 'opacity-50 cursor-not-allowed'
+            }
+          `}
+        >
+          Upload Image
+        </button>
+        {uploadStatus && <p className="mt-4 text-center text-sm text-gray-600">{uploadStatus}</p>}
+      </div>
     </div>
   );
 };

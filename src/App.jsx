@@ -21,7 +21,7 @@ function AppContent() {
       ) : (
         <div className="flex w-full h-screen">
           <Navbar />
-          <div className="flex-grow p-4">
+          <div className="flex-grow">
             <Routes>
               <Route exact path="/upload" Component={Upload} />
               <Route exact path="/items" Component={Items} />
