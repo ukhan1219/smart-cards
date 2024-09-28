@@ -7,7 +7,7 @@ import OpenAI from "openai";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const API_KEY = '';  // Replace with your OpenAI API key
+// const API_KEY = '';  cl
 const openai = new OpenAI({
     apiKey: API_KEY,
   });
