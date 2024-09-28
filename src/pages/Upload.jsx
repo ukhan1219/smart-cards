@@ -41,8 +41,8 @@ const Upload = () => {
       setUploadStatus('Upload successful!');
       console.log('Upload response:', response.data);
     } catch (error) {
-      setUploadStatus('Upload failed. Please try again. WOMP WOMP');
-      console.error('Upload ERROR:', error.response ? error.response.data : error.message);
+      setUploadStatus('Upload failed. Check connection.');
+      console.error('Upload error:', error.response ? error.response.data : error.message);
     }
   };
 
