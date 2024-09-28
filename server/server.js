@@ -192,6 +192,60 @@ app.post('/upload', async (req, res) => {
     }
 });
 
+dotenv.config();
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new googleStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: '/auth/google/callback'
+  },
+  function(accessToken, refreshToken, profile, done) {
+    // Here we can associate the Google account with a user record in our database
+    return done(null, profile);
+  }
+));
+
+// Serialize user
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+  
+// Deserialize user
+passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+});
+
+// Routes for OAuth
+app.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile', 'email'] })
+  );
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/' }),
+  function(req, res) {
+    // Successful authentication, redirect to frontend
+    res.redirect('http://localhost:5173/upload');
+  }
+);
+
+// A route to check if user is logged in
+app.get('/api/user', (req, res) => {
+    if (req.isAuthenticated()) {
+      res.json(req.user);
+    } else {
+      res.status(401).send('Not authenticated');
+    }
+  });
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
