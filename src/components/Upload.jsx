@@ -33,7 +33,7 @@ const Upload = () => {
 
     try {
       setUploadStatus('Uploading...');
-      const response = await axios.post('/api/upload', formData, {
+      const response = await axios.post('http://localhost:5000/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -41,8 +41,8 @@ const Upload = () => {
       setUploadStatus('Upload successful!');
       console.log('Upload response:', response.data);
     } catch (error) {
-      setUploadStatus('Upload failed. Please try again.');
-      console.error('Upload error:', error);
+      setUploadStatus('Upload failed. Please try again. WOMP WOMP');
+      console.error('Upload ERROR:', error.response ? error.response.data : error.message);
     }
   };
 
