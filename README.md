@@ -56,10 +56,6 @@ We're constantly working to improve _SmartCards_. Here are some features we're e
 - Improved investment opportunity detection
 - Social features for comparing anonymized spending habits with peers
 
-## License
-
-_SmartCards_ is released under the [MIT License](LICENSE).
-
 ## Acknowledgements
 
 - Much thanks to Kevin & Sri for their amazing contributions to SmartCards. Their insights on properly catering our product to company challenges are greatly appreciated.
