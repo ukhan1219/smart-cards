@@ -2,7 +2,7 @@
 
 ![SmartCards Banner](src/assets/SmartCards_Banner.png)
 
-SmartCards is a user-friendly addon for your budgeting application to help better categorize transactions and find investing opportunities with your purchases.
+_SmartCards_ is a user-friendly addon for your budgeting app to help you better categorize your transactions and find investing opportunities from each purchase. Simply upload a picture of any receipt and our GenAI technology will organize your purchases while providing insights to help your financial future.
 
 ## Features
 
@@ -10,63 +10,59 @@ SmartCards is a user-friendly addon for your budgeting application to help bette
 - Investment opportunity identification
 - Seamless integration with existing budgeting apps
 - User-friendly interface
-- Customizable settings
 
 ## Installation
 
-To get started with SmartCards, follow these steps:
+To get started with _SmartCards_, run the following
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/mavreyn/smart-cards.git
-   ```
-
-2. Navigate to the project directory:
-   ```
-   cd smart-cards
-   ```
-
-3. Install dependencies:
-   ```
-   npm install
-   ```
+```bash
+git clone https://github.com/mavreyn/smart-cards.git
+cd smart-cards
+npm i
+```
 
 ## Usage
 
-To run SmartCards:
+To run _SmartCards_:
 
-1. Start the server:
-   ```
-   node server/server.js
-   ```
+Start the server
+```bash
+node server/server.js
+```
 
-2. In a separate terminal, start the development server:
-   ```
-   npm run dev
-   ```
+And the development server in a new terminal
+```bash
+npm run dev
+```
 
-3. Open your browser and navigate to `http://localhost:3000` (or the port specified in your configuration).
+Then navigate to `http://localhost:3000 in your browser to access the _SmartCards_ interface
 
-## Configuration
+## Walkthrough
 
-// ... Configuration details ...
+On starting _SmartCards_, you'll be greeted with a clean, intuitive interface. Here's a quick guide to get you started:
 
-## API Documentation
+1. **Upload Receipt**: Click on the "Upload" button to scan or upload a picture of your receipt.
+2. **Items**: Click on the "Items" button to see our GenAI categorize your purchased products/services by their expense type
+3. **Insights**: Check the "Insights" tabs to see personalized investing opportunities and recommendations to modify existing spending habits to help you stack more cash!
 
-// ... API endpoints and usage ...
 
-## Contributing
+## Future Ambitions
 
-We welcome contributions to SmartCards! Please see our [Contributing Guide](CONTRIBUTING.md) for more information on how to get started.
+We're constantly working to improve _SmartCards_. Here are some features we're excited about for future releases:
+
+- Machine learning models for even more accurate transaction categorization
+- Integration with major financial institutions for real-time transaction updates
+- Mobile app for on-the-go receipt scanning and financial management
+- Improved investment opportunity detection
+- Social features for comparing anonymized spending habits with peers
 
 ## License
 
-SmartCards is released under the [MIT License](LICENSE).
-
-## Support
-
-If you encounter any issues or have questions, please [open an issue](https://github.com/mavreyn/smart-cards/issues) on our GitHub repository.
+_SmartCards_ is released under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-// ... Any acknowledgements or credits ...
+- Much thanks to Kevin & Sri for their amazing contributions to SmartCards. Their insights on properly catering our product to company challenges are greatly appreciated.
+
+- AI model powered by [OpenAI](https://openai.com/)
+- Built with [React](https://reactjs.org/), [Node.js](https://nodejs.org/), and [Tailwind CSS](https://tailwindcss.com/)
