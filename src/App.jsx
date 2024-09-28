@@ -1,19 +1,43 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from './components/Home';
-import Upload from './components/Upload';
-import Items from './components/Items';
-import Insights from './components/Insights'; 
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import Home from './pages/Home';
+import Upload from './pages/Upload';
+import Items from './pages/Items';
+import Insights from './pages/Insights';
+import Navbar from './components/Navbar';
+import HomeNavbar from './components/HomeNavbar';
+
+function AppContent() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
+  return (
+    <div>
+      {isHomePage ? (
+        <>
+          <HomeNavbar />
+          <Home />
+        </>
+      ) : (
+        <div className="flex w-full h-screen">
+          <Navbar />
+          <div className="flex-grow p-4">
+            <Routes>
+              <Route exact path="/upload" Component={Upload} />
+              <Route exact path="/items" Component={Items} />
+              <Route exact path="/insights" Component={Insights} />
+            </Routes>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route exact path="/" Component={Home} />
-        <Route exact path="/upload" Component={Upload} />
-        <Route exact path="/items" Component={Items} />
-        <Route exact path="/insights" Component={Insights} />
-      </Routes>
+      <AppContent />
     </BrowserRouter>
   );
 }
