@@ -8,7 +8,7 @@ const Home = () => {
         <div className="md:w-1/2 mb-8 md:mb-0">
           <h1 className="text-5xl md:text-7xl font-bold mb-4 text-indigo-900">Budget Smarter, Invest Wiser</h1>
           <p className="text-2xl mb-6 text-indigo-800">Manage your money with ease and style.</p>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg text-xl">
+          <button onClick={() => window.location.href = '/upload'} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg text-xl">
             Get Started Now
           </button>
         </div>
