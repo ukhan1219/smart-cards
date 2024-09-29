@@ -13,12 +13,12 @@ function Navbar() {
         </li>
         <li>
           <Link to="/items" className="block w-full text-white text-lg bg-blue-600 hover:bg-blue-500 rounded-lg py-3 px-4 transition duration-150 ease-in-out font-bold">
-            Items
+            Breakdown
           </Link>
         </li>
         <li>
           <Link to="/insights" className="block w-full text-white text-lg bg-blue-600 hover:bg-blue-500 rounded-lg py-3 px-4 transition duration-150 ease-in-out font-bold">
-            Insights
+            Investment Insights
           </Link>
         </li>
       </ul>
