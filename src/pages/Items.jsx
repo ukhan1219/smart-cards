@@ -127,7 +127,7 @@ const Items = () => {
   return (
     <div>
       <div className="flex flex-col items-center">
-        <h1 className="text-6xl font-bold mb-4 p-6 pb-0">Your Trip Breakdown</h1>
+        <h1 className="text-6xl font-bold mb-4 p-6 pb-0">Transaction Breakdown</h1>
         <div className="text-2xl font-bold p-4">
           Total: ${uploadResponse.receipt.total.toFixed(2)}
         </div>

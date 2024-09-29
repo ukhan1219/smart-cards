@@ -22,7 +22,7 @@ function AppContent() {
       ) : (
         <div className="flex w-full h-screen bg-blue-100">
           <Navbar />
-          <div className="flex-grow">
+          <div className="flex-grow overflow-y-auto">
             <Routes>
               <Route exact path="/upload" Component={Upload} />
               <Route exact path="/items" Component={Items} />
