@@ -165,7 +165,7 @@ app.post('/upload', async (req, res) => {
         const receiptDetails = await extractReceiptDetails(image.data);
 
         // Step 3: Categorize the items in the receipt via pretrained model
-        const pythonResponse = await axios.post('http://localhost:5001/autocategorize', {
+        const pythonResponse = await axios.post('http://127.0.0.1:5001/autocategorize', {
             items: receiptDetails.items  // Send JSON object containing the items
         }, {
             headers: {
