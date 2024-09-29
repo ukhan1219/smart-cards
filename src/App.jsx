@@ -6,6 +6,7 @@ import Items from './pages/Items';
 import Insights from './pages/Insights';
 import Navbar from './components/Navbar';
 import HomeNavbar from './components/HomeNavbar';
+import { UploadProvider } from './context/UploadContext';
 
 function AppContent() {
   const location = useLocation();
@@ -36,9 +37,11 @@ function AppContent() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+    <UploadProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </UploadProvider>
   );
 }
 

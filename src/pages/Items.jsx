@@ -1,7 +1,8 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-
+import { useUploadContext } from '../context/UploadContext';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const dummy = {
@@ -71,6 +72,31 @@ const dummy = {
 const Items = () => {
   const categories = {};
   const categoryTotals = {};
+  const { uploadResponse } = useUploadContext();
+
+  // Use useEffect to update the component when the context changes
+  useEffect(() => {
+    if (uploadResponse) {
+      // Group items by category
+      const newCategories = {};
+      const newCategoryTotals = {};
+      console.log(uploadResponse)
+      uploadResponse.receipt.items.forEach(item => {
+        if (!newCategories[item.category]) {
+          newCategories[item.category] = [];
+          newCategoryTotals[item.category] = 0;
+        }
+        newCategories[item.category].push(item);
+        newCategoryTotals[item.category] += item.price;
+      });
+
+      // Update the categories and categoryTotals state
+      Object.keys(newCategories).forEach(category => {
+        categories[category] = newCategories[category];
+        categoryTotals[category] = newCategoryTotals[category];
+      });
+    }
+  }, [uploadResponse]);
 
   // Group items by category
   dummy.receipt.items.forEach(item => {

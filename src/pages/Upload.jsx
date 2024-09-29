@@ -1,11 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import { useUploadContext } from '../context/UploadContext';
 
 const Upload = () => {
+  const { updateUploadResponse } = useUploadContext();
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadStatus, setUploadStatus] = useState('');
+  const [paymentType, setPaymentType] = useState('');
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -28,8 +31,14 @@ const Upload = () => {
       return;
     }
 
+    if (!paymentType) {
+      setUploadStatus('Please select a payment type.');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('image', selectedFile);
+    formData.append('payment_method', paymentType); // Add payment type to FormData
 
     try {
       setUploadStatus('Uploading...');
@@ -40,6 +49,9 @@ const Upload = () => {
       });
       setUploadStatus('Upload successful!');
       console.log('Upload response:', response.data);
+
+      // Store the entire response.data in the context
+      updateUploadResponse(response.data);
     } catch (error) {
       setUploadStatus('Upload failed. Check connection.');
       console.error('Upload error:', error.response ? error.response.data : error.message);
@@ -68,6 +80,16 @@ const Upload = () => {
             <img src={previewUrl} alt="Preview" className="max-w-full h-auto rounded-lg" />
           </div>
         )}
+        <select
+          value={paymentType}
+          onChange={(e) => setPaymentType(e.target.value)}
+          className="w-full px-4 py-2 mb-4 rounded-lg text-sm text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+        >
+          <option value="">Select Payment Type</option>
+          <option value="CASH">CASH</option>
+          <option value="CHECKING">CHECKING</option>
+          <option value="WF ACTIVE CASH">WF ACTIVE CASH</option>
+        </select>
         <button
           onClick={handleUpload}
           disabled={!selectedFile}
@@ -76,7 +98,7 @@ const Upload = () => {
             font-semibold text-sm
             bg-blue-500 text-white
             transition-colors duration-300
-            ${selectedFile 
+            ${selectedFile && paymentType
               ? 'hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75' 
               : 'opacity-50 cursor-not-allowed'
             }
