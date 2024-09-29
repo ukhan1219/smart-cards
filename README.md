@@ -67,4 +67,4 @@ We're constantly working to improve _SmartCards_. Here are some features we're e
 - AI model powered by [OpenAI](https://openai.com/)
 - Built with [React](https://reactjs.org/), [Node.js](https://nodejs.org/), and [Tailwind CSS](https://tailwindcss.com/)
 
-![DevPost](https://devpost.com/software/smartcards-qxdusb)
+[DevPost](https://devpost.com/software/smartcards-qxdusb)
