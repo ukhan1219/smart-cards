@@ -29,7 +29,7 @@ const creditCardRecommendations = {
       cashbackCategory: "Home Improvement",
       cards: ["U.S. Bank Shopper Cash Rewards Visa Signature Card"]
     },
-    "Beauty": {
+    "All Beauty": {
       cashbackCategory: "Wellness",
       cards: ["Wells Fargo Attune Card"]
     },
