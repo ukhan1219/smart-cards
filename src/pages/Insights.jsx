@@ -1,4 +1,7 @@
 import React from 'react';
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+
 
 const dummy = {
   "message": "Uploaded Successfully!",
@@ -63,15 +66,13 @@ const dummy = {
   }
 }
 
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const Insights = () => {
   const years = Array.from({ length: 30 }, (_, i) => i + 1); // 30 years
   const growthRate = 0.08; // 8% per year
   const initialAmount = 1; // $1 initial amount
+  const gridColors = ['bg-red-500', 'bg-green-500', 'bg-blue-500', 'bg-yellow-500'];
 
   const data = {
     labels: years,
