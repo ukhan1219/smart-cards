@@ -72,7 +72,6 @@ const Insights = () => {
   const years = Array.from({ length: 30 }, (_, i) => i + 1); // 30 years
   const growthRate = 0.08; // 8% per year
   const initialAmount = 1; // $1 initial amount
-  const gridColors = ['bg-red-500', 'bg-green-500', 'bg-blue-500', 'bg-yellow-500'];
 
   const data = {
     labels: years,

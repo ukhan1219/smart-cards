@@ -43,7 +43,7 @@ const Upload = () => {
 
     try {
       setUploadStatus('Uploading...');
-      const response = await axios.post('http://localhost:5000/upload', formData, {
+      const response = await axios.post('http://127.0.0.1:5000/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -88,7 +88,7 @@ const Upload = () => {
         >
           <option value="">Select Payment Type</option>
           <option value="CASH">CASH</option>
-          <option value="DEBTI">DEBIT</option>
+          <option value="DEBIT">DEBIT</option>
           <option value="Citi Custom Cash Card">CITI CUSTOM CASH</option>
           <option value="Blue Cash Preferred American Express">BLUE CASH PREFERRED AMERICAN EXPRESS</option>
           <option value="Chase Freedom Unlimited">CHASE FREEDOM UNLIMITED</option>

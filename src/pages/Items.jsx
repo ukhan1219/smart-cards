@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { useUploadContext } from '../context/UploadContext';
@@ -70,17 +70,16 @@ const dummy = {
 
 
 const Items = () => {
-  const categories = {};
-  const categoryTotals = {};
+  const [categories, setCategories] = useState({});
+  const [categoryTotals, setCategoryTotals] = useState({});
   const { uploadResponse } = useUploadContext();
 
   // Use useEffect to update the component when the context changes
   useEffect(() => {
-    if (uploadResponse) {
-      // Group items by category
+    if (uploadResponse && uploadResponse.receipt && uploadResponse.receipt.items) {
       const newCategories = {};
       const newCategoryTotals = {};
-      console.log(uploadResponse)
+
       uploadResponse.receipt.items.forEach(item => {
         if (!newCategories[item.category]) {
           newCategories[item.category] = [];
@@ -90,23 +89,10 @@ const Items = () => {
         newCategoryTotals[item.category] += item.price;
       });
 
-      // Update the categories and categoryTotals state
-      Object.keys(newCategories).forEach(category => {
-        categories[category] = newCategories[category];
-        categoryTotals[category] = newCategoryTotals[category];
-      });
+      setCategories(newCategories);
+      setCategoryTotals(newCategoryTotals);
     }
   }, [uploadResponse]);
-
-  // Group items by category
-  dummy.receipt.items.forEach(item => {
-    if (!categories[item.category]) {
-      categories[item.category] = [];
-      categoryTotals[item.category] = 0;
-    }
-    categories[item.category].push(item);
-    categoryTotals[item.category] += item.price;
-  });
 
   const chartData = {
     labels: Object.keys(categoryTotals),
@@ -143,7 +129,7 @@ const Items = () => {
       <div className="flex flex-col items-center">
         <h1 className="text-6xl font-bold mb-4 p-6 pb-0">Your Trip Breakdown</h1>
         <div className="text-2xl font-bold p-4">
-          Total: ${dummy.receipt.total.toFixed(2)}
+          Total: ${uploadResponse.receipt.total.toFixed(2)}
         </div>
         <div className="flex flex-col lg:flex-row justify-center items-start gap-8 w-full max-w-6xl">
           <div className="m-2 bg-white p-10 rounded-lg shadow-md grid grid-cols-1 md:grid-cols-2 gap-4 w-full lg:w-3/5">
@@ -164,9 +150,9 @@ const Items = () => {
             <Pie data={chartData} options={chartOptions} />
           </div>
         </div>
-        {dummy.receipt.cashback > 0 && (
+        {uploadResponse.receipt.cashback > 0 && (
           <div className="mt-4 text-center text-lg text-gray-700 max-w-xl mx-auto italic bg-red-100 p-4 rounded-full">
-            Since you used {dummy.receipt.payment_method}, you earned ${dummy.receipt.cashback.toFixed(2)} cash back from this purchase. See the <a href="/insights" className="text-blue-500 underline hover:text-blue-600 font-bold">insights page</a> for investment opportunities.
+            Since you used {uploadResponse.receipt.payment_method}, you earned ${uploadResponse.receipt.cashback.toFixed(2)} cash back from this purchase. See the <a href="/insights" className="text-blue-500 underline hover:text-blue-600 font-bold">insights page</a> for investment opportunities.
           </div>
         )}
       </div>
