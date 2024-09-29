@@ -25,17 +25,20 @@ npm i
 
 To run _SmartCards_:
 
-Start the server
+Start the express server
 ```bash
 node server/server.js
 ```
-
-And the development server in a new terminal
+And the Python server
+```bash
+python server.py
+```
+And the live development server
 ```bash
 npm run dev
 ```
 
-Then navigate to `http://127.0.0.1:3000` in your browser to access the _SmartCards_ interface
+Then navigate to `http://localhost:3000` in your browser to access the _SmartCards_ interface
 
 ## Walkthrough
 

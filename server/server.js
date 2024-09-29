@@ -235,7 +235,7 @@ app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
     // Successful authentication, redirect to frontend
-    res.redirect('http://127.0.0.1:5173/upload');
+    res.redirect('http://localhost:5173/upload');
   }
 );
 
@@ -249,5 +249,5 @@ app.get('/api/user', (req, res) => {
   });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://127.0.0.1:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
