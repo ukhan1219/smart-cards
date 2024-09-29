@@ -37,6 +37,10 @@ npm run build
 npm install -g serve
 serve -s dist
 ```
+Or start a hot dev server
+```bash
+npm run dev
+```
 
 ## Walkthrough
 
