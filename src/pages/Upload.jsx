@@ -33,7 +33,7 @@ const Upload = () => {
 
     try {
       setUploadStatus('Uploading...');
-      const response = await axios.post('http://127.0.0.1:5000/upload', formData, {
+      const response = await axios.post('http://localhost:5000/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
