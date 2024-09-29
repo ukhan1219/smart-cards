@@ -15,7 +15,10 @@ const openai = new OpenAI({
     apiKey: process.env.OPEN_API_KEY,
   });
 // Enable CORS for all routes
-app.use(cors());  // CORS middleware should be placed before other middlewares
+app.use(cors({
+    origin: 'http://localhost:5173', // Allow requests from Vite frontend
+    credentials: true // Allow credentials (cookies, sessions)
+}));
 
 app.use(fileUpload()); 
 
