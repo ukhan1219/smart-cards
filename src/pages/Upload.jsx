@@ -62,6 +62,7 @@ const Upload = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen p-4 overflow-hidden">
       <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-md overflow-y-auto max-h-full">
+        <h1 className="text-4xl font-bold mb-4 text-center text-gray-800 mb-2">Upload Receipt</h1>
         <label className="block mb-4">
           <span className="sr-only">Choose file</span>
           <input 

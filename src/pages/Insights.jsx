@@ -148,7 +148,7 @@ const Insights = () => {
          <div className="mt-4">
            <button
              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-             onClick={() => window.open('https://www.cdfifund.gov/tools-resources/mapping-tools', '_blank')}
+             onClick={() => window.open('https://www.cdfifund.gov/tools-resources', '_blank')}
            >
              Find CDFIs in Your Community
            </button>

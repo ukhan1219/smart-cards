@@ -70,6 +70,11 @@ const Items = () => {
           <>
             <p className="text-2xl italic">Total: ${uploadResponse.receipt.total.toFixed(2)}</p>
             <p className="text-2xl italic pb-2">Payment Method: {uploadResponse.receipt.payment_method}</p>
+            {uploadResponse.receipt.cashback > 0 && (
+              <div className="mt-4 m-4 text-center drop-shadow-lg font-bold text-md text-gray-700 max-w-xl mx-auto italic bg-red-100 p-4 rounded-full">
+                Since you used {uploadResponse.receipt.payment_method}, you earned ${uploadResponse.receipt.cashback.toFixed(2)} cash back from this purchase. See the insights page for investment opportunities.
+              </div>
+            )}
             <div className="flex flex-col lg:flex-row justify-center items-start gap-8 w-full max-w-6xl">
               <div className="m-2 bg-white p-10 rounded-lg shadow-md grid grid-cols-1 md:grid-cols-2 gap-4 w-full lg:w-3/5">
                 {Object.keys(categories).map(category => (
@@ -89,11 +94,6 @@ const Items = () => {
                 <Pie data={chartData} options={chartOptions} />
               </div>
             </div>
-            {uploadResponse.receipt.cashback > 0 && (
-              <div className="mt-4 m-4 text-center text-lg text-gray-700 max-w-xl mx-auto italic bg-red-100 p-4 rounded-full">
-                Since you used {uploadResponse.receipt.payment_method}, you earned ${uploadResponse.receipt.cashback.toFixed(2)} cash back from this purchase. See the insights page for investment opportunities.
-              </div>
-            )}
           </>
         ) : (
           <div className="text-2xl font-bold p-4">
