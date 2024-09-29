@@ -8,6 +8,7 @@ const Upload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadStatus, setUploadStatus] = useState('');
+
   const [paymentType, setPaymentType] = useState('');
 
   const handleFileChange = (event) => {
@@ -42,7 +43,7 @@ const Upload = () => {
 
     try {
       setUploadStatus('Uploading...');
-      const response = await axios.post('http://127.0.0.1:5000/upload', formData, {
+      const response = await axios.post('http://localhost:5000/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -87,8 +88,10 @@ const Upload = () => {
         >
           <option value="">Select Payment Type</option>
           <option value="CASH">CASH</option>
-          <option value="CHECKING">CHECKING</option>
-          <option value="WF ACTIVE CASH">WF ACTIVE CASH</option>
+          <option value="DEBTI">DEBIT</option>
+          <option value="Citi Custom Cash Card">CITI CUSTOM CASH</option>
+          <option value="Blue Cash Preferred American Express">BLUE CASH PREFERRED AMERICAN EXPRESS</option>
+          <option value="Chase Freedom Unlimited">CHASE FREEDOM UNLIMITED</option>
         </select>
         <button
           onClick={handleUpload}

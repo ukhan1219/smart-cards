@@ -8,6 +8,8 @@ import dotenv from 'dotenv';
 import session from 'express-session';
 import passport from 'passport';
 import { Strategy as googleStrategy } from 'passport-google-oauth20';
+import creditCardRecommendations from '../creditCardRecommendations.js';
+import creditCard from '../creditCard.js';
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -142,6 +144,19 @@ const extractReceiptDetails = async (imageData) => {
     }
 };
 
+const calculateCashback = async (total, card) => {
+    // find the card from creditCard
+    let cardInfo = creditCard[card];
+    // calculate cashback
+    let cashback = total * cardInfo.cashback;
+    
+    // round to 2 decimal places
+    cashback = cashback.toFixed(2);
+
+    return cashback;
+
+}
+
 app.post('/upload', async (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('No files were uploaded.');
@@ -150,6 +165,9 @@ app.post('/upload', async (req, res) => {
         console.log(req.files);
     }
     const image = req.files.image;
+    let payment_method = req.body.payment_method;
+
+
 
     // Example: Use Google Cloud Vision API or similar.
     try {
@@ -163,9 +181,11 @@ app.post('/upload', async (req, res) => {
 
         // Step 2: Extract Item Details from the Receipt + Tax
         const receiptDetails = await extractReceiptDetails(image.data);
+        const fileDetails = {};
 
+        console.log(receiptDetails);
         // Step 3: Categorize the items in the receipt via pretrained model
-        const pythonResponse = await axios.post('http://127.0.0.1:5001/autocategorize', {
+        const pythonResponse = await axios.post('http://localhost:5001/autocategorize', {
             items: receiptDetails.items  // Send JSON object containing the items
         }, {
             headers: {
@@ -175,21 +195,32 @@ app.post('/upload', async (req, res) => {
 
         
         const categorizedItems = pythonResponse.data;
-        // remove receiptDetails.items and add categorizedItems
         receiptDetails.items = categorizedItems;
 
-        console.log(receiptDetails);
+        // if payment method is not cash or checking, then incorporate cashback depending on the card
+        let cashbackCredit = 0;
+        if (payment_method !== 'cash' && payment_method !== 'checking') {
+            // FUNCTION TO DETERMINE CASHBACK
+            cashbackCredit = await calculateCashback(receiptDetails.total, payment_method);
+            // convert to float
+            cashbackCredit = parseFloat(cashbackCredit);
+        }
 
+        // add payment method and chasback to receiptDetails
+        receiptDetails.payment_method = payment_method;
+        receiptDetails.cashback = cashbackCredit;
+        
+        // save file name size and type to file
+        fileDetails.name = image.name;
+        fileDetails.size = image.size;
+        fileDetails.type = image.mimetype;
+
+    
         // Send the response back to the client
-        // res.json(response.data);
         res.json({
             message: 'Image uploaded successfully!',
-            fileName: image.name,
-            fileSize: image.size,
-            fileType: image.mimetype,
-            productInfo: receiptDetails.items,
-            tax: receiptDetails.tax,
-            total: receiptDetails.total
+            file: fileDetails,
+            receipt: receiptDetails
         });
 
     } catch (error) {
